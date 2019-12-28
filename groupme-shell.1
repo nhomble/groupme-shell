@@ -1,0 +1,29 @@
+.TH groupme-shell 1
+.SH NAME
+groupme-shell \- stupid simple shell wrappers ontop of groupme's messaging apis
+.SH SYNOPSIS
+.B groupme-[login logout join leave listen message]
+.SH DESCRIPTION
+wraps http calls to api.groupme.com to listen and create messages in groups
+.SH USAGE
+.SS Executables
+.TP
+.B groupme-login
+It asks for your groupme api-key which is stored plaintext in $HOME. This is required for the other commands to authenticate with groupme.
+.TP
+.B groupme-logout
+It removes any data about this session from local disk
+.TP
+.B groupme-join
+Asks groupme for groups the current user is aware of and asks the user which one they want to join. That group_id is stored with the api key in $HOME.
+.TP
+.B groupme-leave
+Removes the group_id entry in the config file under $HOME
+.TP
+.B groupme-listen
+Given the api key and group_id, the program takes over the shell to poll groupme and display when new messages are found.
+.TP
+.B groupme-message
+Given the api key and group_id, the program goes into a read loop and sends the text to the group chat. For information on available commands do man
+.BR groupme-message (1)
+.

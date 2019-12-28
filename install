@@ -9,6 +9,11 @@ EXECS=(
     groupme-message
 )
 
+DOCS=(
+    groupme-shell.1
+    groupme-message.1
+)
+
 for f in "${EXECS[@]}"; do
     DEST="/usr/local/bin/$f"
     printf "Installing $DEST.....\n"
@@ -17,4 +22,10 @@ for f in "${EXECS[@]}"; do
     cat $(pwd)/_common.sh >> $DEST
     cat $(pwd)/$f >> $DEST
     chmod 755 $DEST
+done
+
+for f in "${DOCS[@]}"; do
+    DEST="/usr/share/man/man1/$f"
+    printf "Copying man pages to $DEST\n"
+    ln -s $(pwd)/$f $DEST
 done
