@@ -17,6 +17,7 @@ DOCS=(
 for f in "${EXECS[@]}"; do
     DEST="/usr/local/bin/$f"
     printf "Installing $DEST.....\n"
+    rm -f $DEST
     touch $DEST
     echo "#!/usr/bin/env bash" > $DEST
     cat $(pwd)/_common.sh >> $DEST
@@ -27,5 +28,6 @@ done
 for f in "${DOCS[@]}"; do
     DEST="/usr/share/man/man1/$f"
     printf "Copying man pages to $DEST\n"
+    rm -f $DEST
     ln -s $(pwd)/$f $DEST
 done
