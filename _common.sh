@@ -3,7 +3,7 @@ GROUPME_API_BASE=https://api.groupme.com/v3
 
 function hasConfig(){
     if [[ ! -e $GROUPME_CONFIG ]]; then
-        printf "Configuration=$GROUPME_CONFIG does not exist, did you ./login?\n"
+        printf "Configuration=$GROUPME_CONFIG does not exist, did you groupme-login?\n"
         exit 1
     fi
 }
