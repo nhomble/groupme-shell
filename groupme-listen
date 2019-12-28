@@ -2,7 +2,13 @@ hasConfig || exit $!
 source $GROUPME_CONFIG
 
 LIMIT=20
+COLORS=('\033[0;31m' '\033[0;32m' '\033[0;33m' '\033[0;34m' '\033[0;35m')
+COLORS_LEN="${#COLORS[@]}"
+COLOR_CLEAR='\033[0m'
+
 last_line=""
+color_iter=0
+
 while true; do
     messages=$(curl --silent $GROUPME_API_BASE/groups/$GROUPME_GROUP_ID/messages?token=$GROUPME_TOKEN&limit=$LIMIT)
 
@@ -32,9 +38,15 @@ while true; do
     if [[ "$last_line" != "${lines[0]}" ]]; then
         last_line="${lines[0]}"
         clear
+        count="$color_iter"
         for l in "${lines[@]}"; do
-            echo $l
+            let "color_index=count%$COLORS_LEN"
+            color="${COLORS[$color_index]}"
+            printf "${color}${l}${COLOR_CLEAR}\n"
+            let "count=count+1"
         done
+        let "color_iter=color_iter+1"
+        let "color_iter=color_iter%COLORS_LEN"
     fi
 
     sleep 1
