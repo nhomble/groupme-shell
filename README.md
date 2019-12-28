@@ -23,7 +23,7 @@ $ groupme-join
 $ groupme-leave
 ```
 
-Here we check for groups you are currently part of, give you a simple prompt, and allow you to choose. This choice is sticky and is persited in ```~/.groupme-shell```.
+Here we check for groups you are currently part of, give you a simple prompt, and allow you to choose. This choice is sticky and is persisted in ```~/.groupme-shell```.
 
 ## Messaging
 ```bash
