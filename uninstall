@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+EXECS=(
+    groupme-login 
+    groupme-logout
+    groupme-join
+    groupme-leave
+    groupme-listen
+    groupme-message
+)
+
+for f in "${EXECS[@]}"; do
+    DEST="/usr/local/bin/$f"
+    printf "Removing $DEST.....\n"
+    rm -f $DEST
+done

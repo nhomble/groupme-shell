@@ -1,0 +1,3 @@
+hasConfig || $!
+
+sed -i '/.*GROUPME_GROUP_ID.*/d' "$GROUPME_CONFIG" 

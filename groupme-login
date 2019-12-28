@@ -1,0 +1,7 @@
+if [[ -e $GROUPME_CONFIG ]]; then
+    source $GROUPME_CONFIG
+else
+    printf "Give me your API token\n"
+    read API_TOKEN
+    echo "GROUPME_TOKEN=$API_TOKEN" >> $GROUPME_CONFIG
+fi

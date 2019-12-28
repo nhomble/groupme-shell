@@ -1,0 +1,34 @@
+hasConfig || exit $!
+source $GROUPME_CONFIG
+
+groups=$(curl --silent $GROUPME_API_BASE/groups?token=$GROUPME_TOKEN)
+
+ids=()
+names=()
+for group in `echo "$groups" | jq -c '.response[] | @base64'`; do
+    ids+=("$(_j $group ".group_id")")
+    names+=("$(_j $group ".name")")
+done
+
+if [[ ${#names[@]} -eq 0 ]]; then
+    printf "No groups were found!"
+    exit 0
+fi
+
+printf "Pick from one of the ${#names[@]} group(s) you want to join\n"
+
+count=0
+for n in "${names[@]}"; do
+    printf "%d) %s\n" $count "$n"
+    let "count=count+1"
+done
+
+choice=""
+while [[ "$choice" == "" ]]; do
+    read RESPONSE
+    if [[ ${ids[$RESPONSE]} != "" ]]; then
+        choice=$RESPONSE
+    fi
+done
+
+echo "GROUPME_GROUP_ID=${ids[$choice]}" >> $GROUPME_CONFIG

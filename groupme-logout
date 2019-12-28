@@ -1,0 +1,3 @@
+hasConfig || exit $!
+
+rm -f $GROUPME_CONFIG

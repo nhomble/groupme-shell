@@ -1,0 +1,42 @@
+hasConfig || exit $!
+source $GROUPME_CONFIG
+
+LIMIT=20
+last_line=""
+while true; do
+    messages=$(curl --silent $GROUPME_API_BASE/groups/$GROUPME_GROUP_ID/messages?token=$GROUPME_TOKEN&limit=$LIMIT)
+
+    author=()
+    message=()
+    msg_time=()
+
+    for blob in `echo $messages | jq -c '.response.messages[] | @base64'`; do
+        author+=("$(_j $blob ".name")")
+        message+=("$(_j $blob ".text") $(_j $blob ".attachments[].url")")
+        msg_time+=("$(_j $blob ".created_at")")
+    done
+    
+    count=0
+    lines=()
+    for m in "${message[@]}"; do
+        a="${author[$count]}"
+        d="$(date -d @${msg_time[$count]} +'%m/%d %I:%M %p')"
+        t="${message[$count]}"
+        line="$a[$d]> $t"
+        line="$(echo $line | sed 's/\r//g' | sed 's/\n//g')"
+        lines=("$line" "${lines[@]}")
+
+        let "count=count+1"
+    done
+
+    if [[ "$last_line" != "${lines[0]}" ]]; then
+        last_line="${lines[0]}"
+        clear
+        for l in "${lines[@]}"; do
+            echo $l
+        done
+    fi
+
+    sleep 1
+done
+
