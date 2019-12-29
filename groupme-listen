@@ -42,7 +42,9 @@ while true; do
         for l in "${lines[@]}"; do
             let "color_index=count%$COLORS_LEN"
             color="${COLORS[$color_index]}"
-            printf "${color}${l}${COLOR_CLEAR}\n"
+            printf "$color"
+            echo "$l"
+            printf "$COLOR_CLEAR"
             let "count=count+1"
         done
         let "color_iter=color_iter+1"
