@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 EXECS=(
     groupme-login 
@@ -19,7 +19,7 @@ for f in "${EXECS[@]}"; do
     printf "Installing $DEST.....\n"
     rm -f $DEST
     touch $DEST
-    echo "#!/usr/bin/env bash" > $DEST
+    echo "#!/usr/bin/bash" > $DEST
     cat $(pwd)/_common.sh >> $DEST
     cat $(pwd)/$f >> $DEST
     chmod 755 $DEST
