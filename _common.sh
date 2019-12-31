@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 GROUPME_CONFIG=~/.groupme-shell
 GROUPME_API_BASE=https://api.groupme.com/v3
 
