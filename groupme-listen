@@ -18,7 +18,12 @@ while true; do
 
     for blob in `echo $messages | jq -c '.response.messages[] | @base64'`; do
         author+=("$(_j $blob ".name")")
-        message+=("$(_j $blob ".text") $(_j $blob ".attachments[].url")")
+        u="$(_j $blob ".attachments[].url")"
+        if [[ "$u" == "null" ]]; then
+            message+=("$(_j $blob ".text")")
+        else
+            message+=("$(_j $blob ".text") "$u"")
+        fi
         msg_time+=("$(_j $blob ".created_at")")
     done
     
