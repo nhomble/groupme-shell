@@ -7,6 +7,7 @@ COLORS_LEN="${#COLORS[@]}"
 COLOR_CLEAR='\033[0m'
 
 last_line=""
+last_len="-1"
 color_iter=0
 
 while true; do
@@ -40,8 +41,9 @@ while true; do
         let "count=count+1"
     done
 
-    if [[ "$last_line" != "${lines[0]}" ]]; then
+    if [[ "$last_line" != "${lines[0]}" ]] || [[ "$last_len" != "${#lines[@]}" ]]; then
         last_line="${lines[0]}"
+        last_len="${#lines[@]}"
         clear
         count="$color_iter"
         for l in "${lines[@]}"; do
