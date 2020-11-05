@@ -2,6 +2,7 @@ hasConfig || exit $!
 source $GROUPME_CONFIG
 
 groups=$(curl --silent $GROUPME_API_BASE/groups?token=$GROUPME_TOKEN)
+checkStatus $groups
 
 ids=()
 names=()

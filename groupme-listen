@@ -12,6 +12,7 @@ color_iter=0
 
 while true; do
     messages=$(curl --silent $GROUPME_API_BASE/groups/$GROUPME_GROUP_ID/messages?token=$GROUPME_TOKEN&limit=$LIMIT)
+    checkStatus $messages
 
     author=()
     message=()

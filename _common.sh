@@ -19,3 +19,12 @@ function _j() {
 function _escape () {
     echo "$@" | sed 's/"/\\"/g'
 }
+
+function checkStatus() {
+    response=$1
+    status=$(echo "$response" | jq -c '.meta.code')
+    if [[ "401" == "$status" ]]; then
+        printf "Token is stale, we got a 401\n"
+        exit 1
+    fi
+}
