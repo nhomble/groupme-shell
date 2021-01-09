@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 GROUPME_CONFIG=~/.groupme-shell
-export GROUPME_API_BASE=https://api.groupme.com/v3
+GROUPME_API_BASE=https://api.groupme.com/v3
 
 function hasConfig(){
     if [[ ! -e $GROUPME_CONFIG ]]; then
