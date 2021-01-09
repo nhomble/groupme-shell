@@ -2,7 +2,9 @@ hasConfig || exit $!
 source $GROUPME_CONFIG
 
 groups=$(curl --silent $GROUPME_API_BASE/groups?token=$GROUPME_TOKEN)
-checkStatus $groups
+
+b64=$(echo $groups | jq -c '. | @base64')
+checkStatus $b64
 
 ids=()
 names=()
