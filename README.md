@@ -34,6 +34,11 @@ person [time]> message
 
 Listening causes the current shell to poll groupme for messages. To message back, open another terminal
 ```bash
-$ groupme-message
+$ groupme-message -i
 hey everyone!
+```
+
+or build your own automation
+```bash
+$ groupme-message -m "bye everyone!"
 ```

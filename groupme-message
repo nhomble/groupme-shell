@@ -1,16 +1,35 @@
 hasConfig || exit $!
 source $GROUPME_CONFIG
 
-while true; do
-    read IN
-    if [[ "$IN" == "/q" ]]; then
-        break
-    elif [[ "$IN" == "" ]]; then
-        continue
-    fi
-    IN="$(_escape $IN)"
-    guid="$(uuidgen)"
-    msg="{\"message\": {\"source_guid\": \"$guid\", \"text\": \"$IN\"}}"
-    silence=$(curl --silent $GROUPME_API_BASE/groups/$GROUPME_GROUP_ID/messages?token=$GROUPME_TOKEN -H "Content-Type: application/json" -d "$msg")
-    IN=""
+INTERACTIVE="false"
+MSG=""
+while getopts im: opt
+do
+    case "${opt}" in 
+        i) INTERACTIVE="true";;
+        m) MSG="${OPTARG}";;
+    esac
 done
+
+function sendMessage() {
+    local in="$1"
+    local guid="$(uuidgen)"
+    local msg="{\"message\": {\"source_guid\": \"$guid\", \"text\": \"$in\"}}"
+    silence=$(curl --silent $GROUPME_API_BASE/groups/$GROUPME_GROUP_ID/messages?token=$GROUPME_TOKEN -H "Content-Type: application/json" -d "$msg")
+}
+
+if [[ "true" = $INTERACTIVE ]]; then
+    while true; do
+        read IN
+        if [[ "$IN" == "/q" ]]; then
+            break
+        elif [[ "$IN" == "" ]]; then
+            continue
+        fi
+        IN="$(_escape $IN)"
+        sendMessage "$IN"
+        IN=""
+    done
+else
+    sendMessage "$MSG"
+fi

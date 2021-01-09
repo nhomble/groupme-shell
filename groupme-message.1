@@ -5,6 +5,12 @@ groupme-message \- a read loop to send messages to a groupme chat
 .B groupme-message
 .SH DESCRIPTION
 In a read loop, takes from stdin and chooses to message a groupme chat or any other commands
+
+.SS -i
+Make the program interactice and enter a read loop.
+.SS -m [message]
+Take in a string argument to send to configured group. This argument is unused when we are in interactive mode.
+
 .SH USAGE
 .SS Commands
 .TP
