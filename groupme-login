@@ -1,4 +1,9 @@
-if [[ -e $GROUPME_CONFIG ]]; then
+if [[ ! -f $GROUPME_CONFIG ]]; then
+    touch $GROUPME_CONFIG
+fi
+
+token=$(cat $GROUPME_CONFIG | grep "GROUPME_TOKEN")
+if [[ "$token" != "" ]]; then
     source $GROUPME_CONFIG
 else
     printf "Give me your API token\n"
