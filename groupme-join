@@ -34,4 +34,8 @@ while [[ "$choice" == "" ]]; do
     fi
 done
 
+tmp=$(mktemp)
+sed '/^GROUPME_GROUP_ID/d' $GROUPME_CONFIG > $tmp
+cat $tmp > $GROUPME_CONFIG
 echo "GROUPME_GROUP_ID=${ids[$choice]}" >> $GROUPME_CONFIG
+rm $tmp
