@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 EXECS=(
+    __groupme_common.sh
     groupme-login 
     groupme-logout
     groupme-join
@@ -35,7 +36,6 @@ for f in "${EXECS[@]}"; do
     printf "Installing $DEST.....\n"
     rm -f $DEST
     touch $DEST
-    cat $(pwd)/_common.sh >> $DEST
     cat $(pwd)/$f >> $DEST
     chmod 755 $DEST
 done

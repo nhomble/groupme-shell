@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 EXECS=(
+    __groupme_common.sh
     groupme-login 
     groupme-logout
     groupme-join

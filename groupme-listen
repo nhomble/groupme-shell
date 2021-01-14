@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+CURR_DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$CURR_DIR" ]]; then CURR_DIR=$(pwd); fi
+source "${CURR_DIR}/__groupme_common.sh"
+
+
 hasConfig || exit $!
 source $GROUPME_CONFIG
 
