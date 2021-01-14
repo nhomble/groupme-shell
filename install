@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 EXECS=(
+    __groupme_common.sh
     groupme-login 
     groupme-logout
     groupme-join
@@ -32,17 +33,15 @@ fi
 
 for f in "${EXECS[@]}"; do
     DEST="/usr/local/bin/$f"
-    printf "Installing $DEST.....\n"
-    rm -f $DEST
-    touch $DEST
-    cat $(pwd)/_common.sh >> $DEST
-    cat $(pwd)/$f >> $DEST
-    chmod 755 $DEST
+    printf "Installing %s.....\n" "$DEST"
+    rm -f "$DEST"
+    cp "$(pwd)/$f" "$DEST"
+    chmod 755 "$DEST"
 done
 
 for f in "${DOCS[@]}"; do
     DEST="/usr/share/man/man1/$f"
-    printf "Copying man pages to $DEST\n"
-    rm -f $DEST
-    ln -s $(pwd)/$f $DEST
+    printf "Copying man pages to %s\n" "$DEST"
+    rm -f "$DEST"
+    ln -s "$(pwd)/$f" "$DEST"
 done

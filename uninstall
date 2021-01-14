@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 EXECS=(
+    __groupme_common.sh
     groupme-login 
     groupme-logout
     groupme-join
@@ -16,12 +17,12 @@ DOCS=(
 
 for f in "${EXECS[@]}"; do
     DEST="/usr/local/bin/$f"
-    printf "Removing $DEST.....\n"
-    rm -f $DEST
+    printf "Removing %s.....\n" "$DEST"
+    rm -f "$DEST"
 done
 
 for f in "${DOCS[@]}"; do 
     DEST="/usr/share/man/man1/$f"
-    printf "Removing $DEST.....\n"
-    rm -f $DEST
+    printf "Removing %s.....\n" "$DEST"
+    rm -f "$DEST"
 done

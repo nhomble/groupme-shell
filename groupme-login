@@ -1,12 +1,18 @@
-if [[ ! -f $GROUPME_CONFIG ]]; then
-    touch $GROUPME_CONFIG
+#!/usr/bin/env bash
+
+CURR_DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$CURR_DIR" ]]; then CURR_DIR=$(pwd); fi
+source "${CURR_DIR}/__groupme_common.sh"
+
+if [[ ! -f "$GROUPME_CONFIG" ]]; then
+    touch "$GROUPME_CONFIG"
 fi
 
-token=$(cat $GROUPME_CONFIG | grep "GROUPME_TOKEN")
+token=$(grep "GROUPME_TOKEN" "$GROUPME_CONFIG")
 if [[ "$token" != "" ]]; then
-    source $GROUPME_CONFIG
+    source "$GROUPME_CONFIG"
 else
     printf "Give me your API token\n"
-    read API_TOKEN
-    echo "GROUPME_TOKEN=$API_TOKEN" >> $GROUPME_CONFIG
+    read -r API_TOKEN
+    echo "GROUPME_TOKEN=$API_TOKEN" >> "$GROUPME_CONFIG"
 fi

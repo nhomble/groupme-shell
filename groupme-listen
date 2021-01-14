@@ -1,5 +1,12 @@
+#!/usr/bin/env bash
+
+CURR_DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$CURR_DIR" ]]; then CURR_DIR="$(pwd)"; fi
+source "${CURR_DIR}/__groupme_common.sh"
+
+
 hasConfig || exit $!
-source $GROUPME_CONFIG
+source "$GROUPME_CONFIG"
 
 LIMIT=20
 COLORS=('\033[0;31m' '\033[0;32m' '\033[0;33m' '\033[0;34m' '\033[0;35m')
@@ -11,7 +18,7 @@ last_len="-1"
 color_iter=0
 
 while true; do
-    messages=$(curl --silent $GROUPME_API_BASE/groups/$GROUPME_GROUP_ID/messages?token=$GROUPME_TOKEN&limit=$LIMIT)
+    messages=$(curl --silent "$GROUPME_API_BASE/groups/$GROUPME_GROUP_ID/messages?token=$GROUPME_TOKEN&limit=$LIMIT")
     b64=$(echo $messages | jq -c '. | @base64')
     checkStatus $b64
 
@@ -40,7 +47,7 @@ while true; do
         a="${author[$count]}"
         d="$(date -d @${msg_time[$count]} +'%m/%d %I:%M %p')"
         t="${message[$count]}"
-        line="$a[$d]> $t"
+        line="$a[$d]> $m"
         line="$(echo $line | sed 's/\r//g' | sed 's/\n//g')"
         lines=("$line" "${lines[@]}")
 
