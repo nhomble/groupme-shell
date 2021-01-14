@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
 CURR_DIR="${BASH_SOURCE%/*}"
-if [[ ! -d "$CURR_DIR" ]]; then CURR_DIR=$(pwd); fi
+if [[ ! -d "$CURR_DIR" ]]; then CURR_DIR="$(pwd)"; fi
 source "${CURR_DIR}/__groupme_common.sh"
 
 hasConfig || exit $!
-source $GROUPME_CONFIG
+source "$GROUPME_CONFIG"
 
-groups=$(curl --silent $GROUPME_API_BASE/groups?token=$GROUPME_TOKEN)
+groups=$(curl --silent "$GROUPME_API_BASE/groups?token=$GROUPME_TOKEN")
 
-b64=$(echo $groups | jq -c '. | @base64')
-checkStatus $b64
+b64=$(echo "$groups" | jq -c '. | @base64')
+checkStatus "$b64"
 
 ids=()
 names=()
@@ -19,12 +19,12 @@ for group in `echo "$groups" | jq -c '.response[] | @base64'`; do
     names+=("$(_j $group ".name")")
 done
 
-if [[ ${#names[@]} -eq 0 ]]; then
+if [[ "${#names[@]}" -eq 0 ]]; then
     printf "No groups were found!"
     exit 0
 fi
 
-printf "Pick from one of the ${#names[@]} group(s) you want to join\n"
+printf "Pick from one of the %s group(s) you want to join\n" ${#names[@]} 
 
 count=0
 for n in "${names[@]}"; do
@@ -40,8 +40,8 @@ while [[ "$choice" == "" ]]; do
     fi
 done
 
-tmp=$(mktemp)
-sed '/^GROUPME_GROUP_ID/d' $GROUPME_CONFIG > $tmp
-cat $tmp > $GROUPME_CONFIG
-echo "GROUPME_GROUP_ID=${ids[$choice]}" >> $GROUPME_CONFIG
-rm $tmp
+tmp="$(mktemp)"
+sed '/^GROUPME_GROUP_ID/d' "$GROUPME_CONFIG" > "$tmp"
+cat "$tmp" > "$GROUPME_CONFIG"
+echo "GROUPME_GROUP_ID=${ids[$choice]}" >> "$GROUPME_CONFIG"
+rm "$tmp"

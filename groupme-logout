@@ -6,4 +6,4 @@ source "${CURR_DIR}/__groupme_common.sh"
 
 hasConfig || exit $!
 
-rm -f $GROUPME_CONFIG
+rm -f "$GROUPME_CONFIG"
