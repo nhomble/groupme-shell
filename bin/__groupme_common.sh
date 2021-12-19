@@ -3,6 +3,16 @@
 export GROUPME_CONFIG=~/.groupme-shell
 export GROUPME_API_BASE=https://api.groupme.com/v3
 
+LOG_DIR="${HOME}/.local/groupme-shell"
+mkdir -p "$LOG_DIR"
+LOGS="${LOG_DIR}/logs.txt"
+echo "Start" >> "$LOGS"
+
+function logit() {
+  local message="$1"
+  echo "$message" >> "$LOGS"
+}
+
 function hasConfig(){
     if [[ ! -e $GROUPME_CONFIG ]]; then
         printf "Configuration=$GROUPME_CONFIG does not exist, did you groupme-login?\n"
