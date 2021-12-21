@@ -10,7 +10,7 @@ echo "Start" >> "$LOGS"
 
 function logit() {
   local message="$1"
-  echo "$message" >> "$LOGS"
+  echo "$(date) :: $message" >> "$LOGS"
 }
 
 function hasConfig(){
