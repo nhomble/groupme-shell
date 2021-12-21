@@ -45,3 +45,26 @@ function checkStatus() {
         exit 1
     fi
 }
+
+# platform safe formatter
+function dateFormat() {
+  local ts="$1"
+  local cmd=""
+  local ret=""
+  if [[ $(isMac) == "true" ]]; then
+    ret="$(date -r $ts +'%m/%d %I:%M %p')"
+  else
+    ret="$(date -d @$ts +'%m/%d %I:%M %p')"
+  fi
+  logit "dateFormat $ts $fmt $ret"
+  echo $ret
+}
+
+# check if mac
+function isMac() {
+  if [[ $(uname) == "Darwin" ]]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}

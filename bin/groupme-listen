@@ -45,7 +45,7 @@ while true; do
     lines=()
     for m in "${message[@]}"; do
         a="${author[$count]}"
-        d="$(date -d @${msg_time[$count]} +'%m/%d %I:%M %p')"
+        d="$(dateFormat ${msg_time[$count]})"
         t="${message[$count]}"
         line="$a[$d]> $m"
         line="$(echo $line | sed 's/\r//g' | sed 's/\n//g')"
