@@ -2,8 +2,9 @@
 stupid simple shell wrappers to hook into groupme
 
 # Installation 
+It is [basher](https://github.com/basherpm/basher) compatible
 ```bash
-$ ./install
+basher install nhomble/groupme-shell
 ```
 
 # Workflow
