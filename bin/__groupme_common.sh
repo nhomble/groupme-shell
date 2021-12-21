@@ -22,7 +22,9 @@ function hasConfig(){
 
 # stark and wayne
 function _j() {
-    local cmd="echo $1 | base64 --decode | jq -r $2"
+    local input="$1"
+    logit "_j input=${input}"
+    local cmd="echo $input | base64 --decode | jq -r $2"
     eval $cmd
 }
 
@@ -33,6 +35,7 @@ function _escape () {
 # expects json response in b64
 function checkStatus() {
     local b64_response=$1
+    logit "checkStatus response=${b64_response}"
     local status=$(echo "$b64_response" \
         | base64 -i --decode \
         | jq -c '.meta.code'\
