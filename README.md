@@ -1,4 +1,6 @@
 # groupme-shell
+[![Linter](https://github.com/nhomble/groupme-shell/actions/workflows/linter.yml/badge.svg)](https://github.com/nhomble/groupme-shell/actions/workflows/linter.yml)
+
 stupid simple shell wrappers to hook into groupme
 
 # Installation 
