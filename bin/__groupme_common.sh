@@ -15,7 +15,7 @@ function logit() {
 
 function hasConfig(){
     if [[ ! -e $GROUPME_CONFIG ]]; then
-        printf "Configuration=$GROUPME_CONFIG does not exist, did you groupme-login?\n"
+        printf "Configuration=$GROUPME_CONFIG does not exist.\nRun:\n\tgroupme-login\n"
         exit 1
     fi
 }
