@@ -3,8 +3,9 @@
 
 stupid simple shell wrappers to hook into groupme
 
-## Installation 
+## Installation
 It is [basher](https://github.com/basherpm/basher) compatible
+
 ```bash
 basher install nhomble/groupme-shell
 ```
@@ -16,8 +17,7 @@ groupme-login
 ```
 and provide an access token from [groupme](https://dev.groupme.com/).
 
-You can always logout with ```groupme-logout```. **Note** there is nothing clever here. The 
-token is stored in plaintext in ```$HOME/.groupme-shell```.
+You can always logout with ```groupme-logout```. **Note** there is nothing clever here. The token is stored in plaintext in ```$HOME/.groupme-shell```.
 
 ### Groups
 ```bash
