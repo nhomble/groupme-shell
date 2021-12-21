@@ -12,7 +12,7 @@ basher install nhomble/groupme-shell
 ## Workflow
 ### Auth
 ```bash
-$ groupme-login
+groupme-login
 ```
 and provide an access token from [groupme](https://dev.groupme.com/).
 
@@ -21,9 +21,9 @@ token is stored in plaintext in ```$HOME/.groupme-shell```.
 
 ### Groups
 ```bash
-$ groupme-join
+groupme-join
 ....
-$ groupme-leave
+groupme-leave
 ```
 
 Here we check for groups you are currently part of, give you a simple prompt, and allow you to choose. This choice is sticky and is persisted in ```~/.groupme-shell```.
@@ -43,5 +43,5 @@ hey everyone!
 
 or build your own automation
 ```bash
-$ groupme-message -m "bye everyone!"
+groupme-message -m "bye everyone!"
 ```
