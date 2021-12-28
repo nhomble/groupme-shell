@@ -3,9 +3,9 @@
 export GROUPME_CONFIG=~/.groupme-shell
 export GROUPME_API_BASE=https://api.groupme.com/v3
 
-LOG_DIR="${HOME}/.local/groupme-shell"
+LOG_DIR="$HOME/.local/groupme-shell"
 mkdir -p "$LOG_DIR"
-LOGS="${LOG_DIR}/logs.txt"
+LOGS="$LOG_DIR/logs.txt"
 echo "Start" >> "$LOGS"
 
 function logit() {
@@ -24,7 +24,7 @@ function hasConfig(){
 function _j() {
     local input="$1"
     local cmd="echo $input | base64 --decode | jq -r $2"
-    eval $cmd
+    eval "$cmd"
 }
 
 function _escape () {
@@ -33,7 +33,7 @@ function _escape () {
 
 # expects json response in b64
 function checkStatus() {
-    local b64_response=$1
+    local b64_response="$1"
     local status=""
 
     # base64 -i is meant to ignore garbage in coreutils
@@ -56,11 +56,11 @@ function dateFormat() {
   local cmd=""
   local ret=""
   if [[ $(isMac) == "true" ]]; then
-    ret="$(date -r $ts +'%m/%d %I:%M %p')"
+    ret="$(date -r "$ts" +'%m/%d %I:%M %p')"
   else
-    ret="$(date -d @$ts +'%m/%d %I:%M %p')"
+    ret="$(date -d @"$ts" +'%m/%d %I:%M %p')"
   fi
-  echo $ret
+  echo "$ret"
 }
 
 # check if mac
