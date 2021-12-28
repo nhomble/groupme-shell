@@ -23,7 +23,6 @@ function hasConfig(){
 # stark and wayne
 function _j() {
     local input="$1"
-    logit "_j input=${input}"
     local cmd="echo $input | base64 --decode | jq -r $2"
     eval $cmd
 }
@@ -35,11 +34,16 @@ function _escape () {
 # expects json response in b64
 function checkStatus() {
     local b64_response=$1
-    logit "checkStatus response=${b64_response}"
-    local status=$(echo "$b64_response" \
-        | base64 -i --decode \
-        | jq -c '.meta.code'\
-    )
+    local status=""
+
+    # base64 -i is meant to ignore garbage in coreutils
+    if [[ $(isMac) != "true" ]]; then
+      status=$(echo "$b64_response" \
+          | base64 -i --decode \
+          | jq -c '.meta.code'\
+      )
+    fi
+
     if [[ "401" == "$status" ]]; then
         printf "Token is stale, we got a 401\n"
         exit 1
@@ -56,7 +60,6 @@ function dateFormat() {
   else
     ret="$(date -d @$ts +'%m/%d %I:%M %p')"
   fi
-  logit "dateFormat $ts $fmt $ret"
   echo $ret
 }
 
