@@ -13,6 +13,6 @@ if [[ "$token" != "" ]]; then
     source "$GROUPME_CONFIG"
 else
     printf "Give me your API token\n"
-    read -r API_TOKEN
+    read -r -s API_TOKEN
     echo "GROUPME_TOKEN=$API_TOKEN" >> "$GROUPME_CONFIG"
 fi
