@@ -5,6 +5,8 @@ if [[ ! -d "$CURR_DIR" ]]; then CURR_DIR="$(pwd)"; fi
 source "${CURR_DIR}/__groupme_common.sh"
 
 hasConfig || exit $!
+
+# shellcheck source=src/util.sh
 source "$GROUPME_CONFIG"
 
 group=$(curl --silent "$GROUPME_API_BASE/groups/${GROUPME_GROUP_ID}?token=$GROUPME_TOKEN")
