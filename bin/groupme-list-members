@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+CURR_DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$CURR_DIR" ]]; then CURR_DIR="$PWD"; fi
+source "$CURR_DIR/__groupme_common.sh"
+
+hasConfig || exit $!
+
+# shellcheck source=src/util.sh
+source "$GROUPME_CONFIG"
+
+group=$(curl --silent "$GROUPME_API_BASE/groups/$GROUPME_GROUP_ID?token=$GROUPME_TOKEN")
+
+b64=$(echo "$group" | jq -c '. | @base64')
+checkStatus "$b64"
+
+echo "$group" | jq '.response.members' | jq '.[] | .user_id, .name, .nickname' | sed 'N;N;s/\n/\t - /g'

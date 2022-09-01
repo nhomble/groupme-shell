@@ -28,7 +28,7 @@ You can always logout with `groupme-logout`. **Note** there is nothing clever he
 
 ```bash
 groupme-join
-....
+groupme-list-members
 groupme-leave
 ```
 
